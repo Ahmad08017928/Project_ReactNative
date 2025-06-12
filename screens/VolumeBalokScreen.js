@@ -10,6 +10,7 @@ import {
   Platform,
   Animated
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function VolumeBalok({ navigation }) {
   const [length, setLength] = useState('');
@@ -52,52 +53,80 @@ export default function VolumeBalok({ navigation }) {
       style={styles.container}
     >
       <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Kelompok 3</Text>
+          <Text style={styles.headerSubtitle}>X RPL 1</Text>
+        </View>
+
+        <View style={styles.card}>
+          <View style={styles.memberContainer}>
+            <Ionicons name="person" size={16} color="#555" />
+            <Text style={styles.memberText}>Paina Anggraini (30)</Text>
+          </View>
+          <View style={styles.memberContainer}>
+            <Ionicons name="person" size={16} color="#555" />
+            <Text style={styles.memberText}>Dewi Sekar Ayu Andini (09)</Text>
+          </View>
+          <View style={styles.memberContainer}>
+            <Ionicons name="person" size={16} color="#555" />
+            <Text style={styles.memberText}>Siti Hatija (35)</Text>
+          </View>
+        </View>
+
         <View style={styles.card}>
           <Text style={styles.title}>Kalkulator Volume Balok</Text>
           
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Panjang:</Text>
+            <Text style={styles.label}>Panjang (cm)</Text>
             <TextInput 
               style={styles.input} 
               keyboardType="numeric" 
               value={length} 
               onChangeText={setLength} 
-              placeholder="Masukkan panjang" 
+              placeholder="0" 
               placeholderTextColor="#aaa" 
             />
           </View>
           
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Lebar:</Text>
+            <Text style={styles.label}>Lebar (cm)</Text>
             <TextInput 
               style={styles.input} 
               keyboardType="numeric" 
               value={width} 
               onChangeText={setWidth} 
-              placeholder="Masukkan lebar" 
+              placeholder="0" 
               placeholderTextColor="#aaa" 
             />
           </View>
           
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Tinggi:</Text>
+            <Text style={styles.label}>Tinggi (cm)</Text>
             <TextInput 
               style={styles.input} 
               keyboardType="numeric" 
               value={height} 
               onChangeText={setHeight} 
-              placeholder="Masukkan tinggi" 
+              placeholder="0" 
               placeholderTextColor="#aaa" 
             />
           </View>
 
           <View style={styles.buttonGroup}>
-            <TouchableOpacity style={[styles.button, styles.calculateButton]} onPress={calculateVolume}>
-              <Text style={styles.buttonText}>Hitung Volume</Text>
+            <TouchableOpacity 
+              style={[styles.button, styles.calculateButton]} 
+              onPress={calculateVolume}
+            >
+              <Ionicons name="calculator" size={20} color="white" />
+              <Text style={styles.buttonText}> Hitung</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity style={[styles.button, styles.resetButton]} onPress={resetForm}>
-              <Text style={styles.buttonText}>Reset</Text>
+            <TouchableOpacity 
+              style={[styles.button, styles.resetButton]} 
+              onPress={resetForm}
+            >
+              <Ionicons name="refresh" size={20} color="white" />
+              <Text style={styles.buttonText}> Reset</Text>
             </TouchableOpacity>
           </View>
 
@@ -108,26 +137,28 @@ export default function VolumeBalok({ navigation }) {
                 { transform: [{ scale: scaleAnim }] }
               ]}
             >
-              <Text style={styles.resultLabel}>Volume Balok:</Text>
-              <Text style={styles.result}>{volume} unit³</Text>
+              <Text style={styles.resultLabel}>Hasil Volume:</Text>
+              <Text style={styles.result}>{volume} cm³</Text>
             </Animated.View>
           )}
+        </View>
 
-          <View style={styles.navButtons}>
-            <TouchableOpacity 
-              style={styles.navButton} 
-              onPress={() => navigation.navigate('Biodata')}
-            >
-              <Text style={styles.navButtonText}>Biodata</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity 
-              style={styles.navButton} 
-              onPress={() => navigation.navigate('Percabangan')}
-            >
-              <Text style={styles.navButtonText}>Cek Nilai</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.navButtons}>
+          <TouchableOpacity 
+            style={styles.navButton} 
+            onPress={() => navigation.navigate('Biodata')}
+          >
+            <Ionicons name="person-circle" size={20} color="#6a1b9a" />
+            <Text style={styles.navButtonText}> Biodata</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={styles.navButton} 
+            onPress={() => navigation.navigate('Percabangan')}
+          >
+            <Ionicons name="school" size={20} color="#6a1b9a" />
+            <Text style={styles.navButtonText}> Cek Angka</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -137,96 +168,128 @@ export default function VolumeBalok({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f8f9fa',
   },
   scrollContent: {
-    padding: 20,
+    padding: 16,
+    paddingBottom: 40,
+  },
+  header: {
+    marginBottom: 16,
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  headerSubtitle: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 4,
   },
   card: {
     backgroundColor: "white",
-    borderRadius: 15,
-    padding: 25,
+    borderRadius: 12,
+    padding: 20,
     width: "100%",
-    elevation: 5,
+    marginBottom: 16,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+  memberContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  memberText: {
+    marginLeft: 8,
+    color: '#555',
+    fontSize: 14,
   },
   title: { 
-    fontSize: 24, 
-    fontWeight: "bold", 
+    fontSize: 20, 
+    fontWeight: "600", 
     color: "#333", 
     textAlign: "center", 
-    marginBottom: 25,
-  },
-  inputContainer: { 
     marginBottom: 20,
   },
+  inputContainer: { 
+    marginBottom: 16,
+  },
   label: { 
-    fontSize: 16, 
+    fontSize: 14, 
     marginBottom: 8, 
     color: "#555", 
     fontWeight: "500" 
   },
   input: { 
     borderWidth: 1, 
-    borderColor: "#ddd", 
-    borderRadius: 10, 
-    padding: 15, 
-    backgroundColor: "#f9f9f9",
+    borderColor: "#e0e0e0", 
+    borderRadius: 8, 
+    padding: 12, 
+    backgroundColor: "#fafafa",
     fontSize: 16,
   },
   buttonGroup: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: 15,
+    marginVertical: 12,
   },
   button: {
-    padding: 15,
-    borderRadius: 10,
+    padding: 12,
+    borderRadius: 8,
     alignItems: "center",
-    elevation: 3,
+    flexDirection: 'row',
+    justifyContent: 'center',
     flex: 1,
-    marginHorizontal: 5,
+    marginHorizontal: 6,
   },
   calculateButton: {
     backgroundColor: "#6a1b9a",
   },
   resetButton: {
-    backgroundColor: "#ff6b6b",
+    backgroundColor: "#555",
   },
   buttonText: { 
     color: "white", 
     fontSize: 16, 
-    fontWeight: "bold" 
+    fontWeight: "500" 
   },
   resultContainer: { 
-    marginTop: 20, 
-    padding: 20, 
-    backgroundColor: "#e1bee7", 
-    borderRadius: 10, 
+    marginTop: 16, 
+    padding: 16, 
+    backgroundColor: "#f0f0f0", 
+    borderRadius: 8, 
     alignItems: "center" 
   },
   resultLabel: { 
-    fontSize: 16, 
-    color: "#4a148c", 
-    marginBottom: 5 
+    fontSize: 14, 
+    color: "#555", 
+    marginBottom: 4 
   },
   result: { 
-    fontSize: 24, 
-    fontWeight: "bold", 
-    color: "#4a148c" 
+    fontSize: 20, 
+    fontWeight: "600", 
+    color: "#6a1b9a" 
   },
   navButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 20,
+    justifyContent: 'center',
+    marginTop: 8,
   },
   navButton: {
     padding: 10,
     borderRadius: 8,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 8,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
   },
   navButtonText: {
     color: '#6a1b9a',
